@@ -1,0 +1,28 @@
+version: "3.8"
+networks:
+  devlink:
+    external: true
+    name: devlink
+  cronnet:
+    name: cronnet
+
+services:
+  web:
+    image: kayuii/gocron
+    ports:
+      - "8080:8080"
+      - "5920:5920"
+    restart: unless-stopped
+    networks:
+      cronnet: 
+      devlink:
+    # links: mysql:db
+    
+  node:
+    image: kayuii/gocron-node
+    restart: unless-stopped
+    networks:
+      cronnet: 
+      devlink:
+
+
